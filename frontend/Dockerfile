@@ -6,9 +6,8 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 
-# Build-time env: la URL del backend se inyecta en build
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+# URL del backend en producción
+ENV NEXT_PUBLIC_API_URL=https://jaffslomos-backend.l55xrw.easypanel.host
 
 RUN npm run build
 
