@@ -9,6 +9,10 @@ SQLALCHEMY_DATABASE_URL = os.getenv(
     "postgresql://jaffs_admin:jaffs_password_123@localhost:5432/jaffslomos"
 )
 
+# EasyPanel usa "postgres://" pero SQLAlchemy necesita "postgresql://"
+if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
