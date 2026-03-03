@@ -39,13 +39,13 @@ export default function LoginPage() {
         <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
             {/* Premium Background Effects */}
             <div className="absolute inset-0 bg-zinc-950" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-orange-600/20 blur-[120px] rounded-full pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-yellow-600/20 blur-[120px] rounded-full pointer-events-none" />
 
             {/* Login Card */}
             <div className="relative z-10 w-full max-w-md">
                 <div className="bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/60 p-8 rounded-3xl shadow-2xl">
                     <div className="flex justify-center mb-6">
-                        <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-900/40">
+                        <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-2xl flex items-center justify-center shadow-lg shadow-yellow-900/40">
                             <Lock className="w-8 h-8 text-white" />
                         </div>
                     </div>
@@ -72,7 +72,7 @@ export default function LoginPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••••••"
-                                    className="w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all"
+                                    className="w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500/50 transition-all"
                                     autoComplete="current-password"
                                     required
                                 />
@@ -82,7 +82,7 @@ export default function LoginPage() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="group relative w-full flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-semibold py-3.5 px-4 rounded-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-orange-900/20 active:scale-[0.98]"
+                            className="group relative w-full flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-white font-semibold py-3.5 px-4 rounded-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-yellow-900/20 active:scale-[0.98]"
                         >
                             {isLoading ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -103,3 +103,4 @@ export default function LoginPage() {
         </div>
     );
 }
+

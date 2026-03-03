@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Store, Phone, Truck, ShieldAlert, Save, Loader2, Plus, Trash2, CalendarClock } from "lucide-react";
+import { Store, Phone, Truck, Save, Loader2, Plus, Trash2, CalendarClock, Palette, Instagram, MapPin, ImageIcon, Type, UploadCloud, X } from "lucide-react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import axios from "axios";
@@ -37,7 +37,16 @@ const daysOfWeek: { key: keyof ScheduleMap, label: string }[] = [
 
 export default function SettingsPage() {
     const [isLoading, setIsLoading] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
     const [settings, setSettings] = useState({
+        // Personalización
+        storeName: "Jaff's Lomos",
+        storeLocation: "Los Polvorines, Buenos Aires",
+        storeDescription: "",
+        bannerUrl: "",
+        logoUrl: "",
+        instagramUrl: "",
+        // Operación
         isOpen: true,
         autoSchedule: true,
         schedules: {
@@ -50,8 +59,7 @@ export default function SettingsPage() {
             sunday: { enabled: true, slots: [{ open: "19:00", close: "23:59" }] }
         } as ScheduleMap,
         whatsappNumber: "5491112345678",
-        deliveryCost: "500",
-        orderMessage: "¡Hola! Quisiera hacer el siguiente pedido:"
+        deliveryCost: "500"
     });
 
     const { data: dbSettings, mutate: mutateSettings } = useSWR(`${API_URL}/settings/`, fetcher);
@@ -62,10 +70,16 @@ export default function SettingsPage() {
 
         setSettings(prev => ({
             ...prev,
+            storeName: dbSettings.store_name || prev.storeName,
+            storeLocation: dbSettings.store_location || prev.storeLocation,
+            storeDescription: dbSettings.store_description || "",
+            bannerUrl: dbSettings.banner_url || "",
+            logoUrl: dbSettings.logo_url || "",
+            instagramUrl: dbSettings.instagram_url || "",
             isOpen: dbSettings.is_open,
             whatsappNumber: dbSettings.whatsapp_number,
             deliveryCost: dbSettings.delivery_cost.toString(),
-            orderMessage: dbSettings.order_message,
+
             ...(dbSettings.schedules && { schedules: dbSettings.schedules })
         }));
     }, [dbSettings]);
@@ -77,10 +91,16 @@ export default function SettingsPage() {
         try {
             // Guardar toda la configuración en el backend (incluyendo horarios)
             await axios.put(`${API_URL}/settings/`, {
+                store_name: settings.storeName,
+                store_location: settings.storeLocation,
+                store_description: settings.storeDescription,
+                banner_url: settings.bannerUrl || null,
+                logo_url: settings.logoUrl || null,
+                instagram_url: settings.instagramUrl,
                 is_open: settings.isOpen,
                 whatsapp_number: settings.whatsappNumber,
                 delivery_cost: parseFloat(settings.deliveryCost),
-                order_message: settings.orderMessage,
+
                 schedules: settings.schedules
             });
 
@@ -142,11 +162,140 @@ export default function SettingsPage() {
 
             <form onSubmit={handleSave} className="space-y-6">
 
+                {/* Personalización de Marca */}
+                <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
+                    <div className="flex items-center gap-3 mb-6 pb-4 border-b border-zinc-800">
+                        <div className="p-2 bg-yellow-500/10 rounded-lg">
+                            <Palette className="w-5 h-5 text-yellow-500" />
+                        </div>
+                        <div>
+                            <h2 className="text-lg font-bold text-white">Tu Marca</h2>
+                            <p className="text-zinc-500 text-sm">Personalizá cómo ven tu tienda los clientes.</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-zinc-400 mb-2">
+                                <Type className="w-3.5 h-3.5 inline mr-1.5" />Nombre de la Tienda
+                            </label>
+                            <input
+                                type="text"
+                                value={settings.storeName}
+                                onChange={(e) => setSettings({ ...settings, storeName: e.target.value })}
+                                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                placeholder="Jaff's Lomos"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-zinc-400 mb-2">
+                                <MapPin className="w-3.5 h-3.5 inline mr-1.5" />Ubicación
+                            </label>
+                            <input
+                                type="text"
+                                value={settings.storeLocation}
+                                onChange={(e) => setSettings({ ...settings, storeLocation: e.target.value })}
+                                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                placeholder="Los Polvorines, Buenos Aires"
+                            />
+                        </div>
+
+                        <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-zinc-400 mb-2">Descripción / Eslogan</label>
+                            <input
+                                type="text"
+                                value={settings.storeDescription}
+                                onChange={(e) => setSettings({ ...settings, storeDescription: e.target.value })}
+                                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                placeholder="Los mejores lomos de la zona"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-zinc-400 mb-2">
+                                <ImageIcon className="w-3.5 h-3.5 inline mr-1.5" />Banner (cabecera)
+                            </label>
+                            {settings.bannerUrl ? (
+                                <div className="relative group">
+                                    <img src={settings.bannerUrl.startsWith('/') ? `${API_URL}${settings.bannerUrl}` : settings.bannerUrl} alt="Banner" className="w-full h-32 object-cover rounded-xl border border-zinc-800" />
+                                    <button type="button" onClick={() => setSettings({ ...settings, bannerUrl: '' })} className="absolute top-2 right-2 bg-red-600 hover:bg-red-500 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <X className="w-3.5 h-3.5" />
+                                    </button>
+                                </div>
+                            ) : (
+                                <label className="flex flex-col items-center justify-center w-full h-32 bg-zinc-950 border border-dashed border-zinc-700 hover:border-yellow-500/50 rounded-xl cursor-pointer transition-colors">
+                                    <UploadCloud className="w-6 h-6 text-zinc-500 mb-1" />
+                                    <span className="text-xs text-zinc-500">{isUploading ? 'Subiendo...' : 'Subir banner'}</span>
+                                    <input type="file" accept="image/*" className="hidden" disabled={isUploading} onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (!file) return;
+                                        setIsUploading(true);
+                                        try {
+                                            const formData = new FormData();
+                                            formData.append('file', file);
+                                            const res = await axios.post(`${API_URL}/upload/image/`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+                                            setSettings(prev => ({ ...prev, bannerUrl: res.data.url }));
+                                            toast.success('Banner subido');
+                                        } catch { toast.error('Error al subir banner'); }
+                                        finally { setIsUploading(false); }
+                                    }} />
+                                </label>
+                            )}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-zinc-400 mb-2">
+                                <ImageIcon className="w-3.5 h-3.5 inline mr-1.5" />Logo
+                            </label>
+                            {settings.logoUrl ? (
+                                <div className="relative group w-32 h-32">
+                                    <img src={settings.logoUrl.startsWith('/') ? `${API_URL}${settings.logoUrl}` : settings.logoUrl} alt="Logo" className="w-32 h-32 object-cover rounded-2xl border border-zinc-800" />
+                                    <button type="button" onClick={() => setSettings({ ...settings, logoUrl: '' })} className="absolute top-2 right-2 bg-red-600 hover:bg-red-500 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <X className="w-3.5 h-3.5" />
+                                    </button>
+                                </div>
+                            ) : (
+                                <label className="flex flex-col items-center justify-center w-32 h-32 bg-zinc-950 border border-dashed border-zinc-700 hover:border-yellow-500/50 rounded-2xl cursor-pointer transition-colors">
+                                    <UploadCloud className="w-6 h-6 text-zinc-500 mb-1" />
+                                    <span className="text-xs text-zinc-500">{isUploading ? 'Subiendo...' : 'Subir logo'}</span>
+                                    <input type="file" accept="image/*" className="hidden" disabled={isUploading} onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (!file) return;
+                                        setIsUploading(true);
+                                        try {
+                                            const formData = new FormData();
+                                            formData.append('file', file);
+                                            const res = await axios.post(`${API_URL}/upload/image/`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+                                            setSettings(prev => ({ ...prev, logoUrl: res.data.url }));
+                                            toast.success('Logo subido');
+                                        } catch { toast.error('Error al subir logo'); }
+                                        finally { setIsUploading(false); }
+                                    }} />
+                                </label>
+                            )}
+                        </div>
+
+                        <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-zinc-400 mb-2">
+                                <Instagram className="w-3.5 h-3.5 inline mr-1.5" />Link de Instagram
+                            </label>
+                            <input
+                                type="url"
+                                value={settings.instagramUrl}
+                                onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
+                                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                placeholder="https://instagram.com/jaffslomos"
+                            />
+                        </div>
+                    </div>
+                </div>
+
                 {/* Estado Operativo */}
                 <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
                     <div className="flex items-center gap-3 mb-6 pb-4 border-b border-zinc-800">
-                        <div className="p-2 bg-orange-500/10 rounded-lg">
-                            <Store className="w-5 h-5 text-orange-500" />
+                        <div className="p-2 bg-yellow-500/10 rounded-lg">
+                            <Store className="w-5 h-5 text-yellow-500" />
                         </div>
                         <div>
                             <h2 className="text-lg font-bold text-white">Estado del Local</h2>
@@ -174,9 +323,9 @@ export default function SettingsPage() {
                         </div>
 
                         {/* Switch Horario Automático */}
-                        <div className="flex items-center justify-between p-4 bg-zinc-950 rounded-xl border border-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.05)]">
+                        <div className="flex items-center justify-between p-4 bg-zinc-950 rounded-xl border border-yellow-500/20 shadow-[0_0_15px_rgba(249,115,22,0.05)]">
                             <div>
-                                <p className="font-medium text-orange-400">Automatizar Horarios de Atención</p>
+                                <p className="font-medium text-yellow-400">Automatizar Horarios de Atención</p>
                                 <p className="text-xs text-zinc-400 mt-1 pl-0.5">La tienda abrirá y cerrará sola según las horas configuradas abajo.</p>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
@@ -186,7 +335,7 @@ export default function SettingsPage() {
                                     onChange={(e) => setSettings({ ...settings, autoSchedule: e.target.checked })}
                                     className="sr-only peer"
                                 />
-                                <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                                <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
                             </label>
                         </div>
                     </div>
@@ -218,12 +367,12 @@ export default function SettingsPage() {
                                         <div key={key} className={`p-4 rounded-xl border transition-colors ${schedule.enabled ? 'bg-zinc-950 border-zinc-800' : 'bg-black border-zinc-900 opacity-60'}`}>
                                             <div className="flex items-center justify-between mb-4">
                                                 <div className="flex items-center gap-2">
-                                                    <CalendarClock className="w-4 h-4 text-orange-500" />
+                                                    <CalendarClock className="w-4 h-4 text-yellow-500" />
                                                     <span className="font-medium text-white">{label}</span>
                                                 </div>
                                                 <label className="relative inline-flex items-center cursor-pointer">
                                                     <input type="checkbox" checked={schedule.enabled} onChange={(e) => toggleDay(key, e.target.checked)} className="sr-only peer" />
-                                                    <div className="w-9 h-5 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div>
+                                                    <div className="w-9 h-5 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500"></div>
                                                 </label>
                                             </div>
 
@@ -231,9 +380,9 @@ export default function SettingsPage() {
                                                 <div className="space-y-3">
                                                     {schedule.slots.map((slot, idx) => (
                                                         <div key={idx} className="flex items-center gap-3">
-                                                            <input type="time" value={slot.open} onChange={(e) => updateSlot(key, idx, 'open', e.target.value)} className="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:ring-1 focus:ring-orange-500 outline-none" />
+                                                            <input type="time" value={slot.open} onChange={(e) => updateSlot(key, idx, 'open', e.target.value)} className="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:ring-1 focus:ring-yellow-500 outline-none" />
                                                             <span className="text-zinc-500">a</span>
-                                                            <input type="time" value={slot.close} onChange={(e) => updateSlot(key, idx, 'close', e.target.value)} className="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:ring-1 focus:ring-orange-500 outline-none" />
+                                                            <input type="time" value={slot.close} onChange={(e) => updateSlot(key, idx, 'close', e.target.value)} className="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:ring-1 focus:ring-yellow-500 outline-none" />
                                                             {schedule.slots.length > 1 && (
                                                                 <button type="button" onClick={() => removeSlot(key, idx)} className="p-2 text-zinc-500 hover:text-red-400 transition-colors">
                                                                     <Trash2 className="w-4 h-4" />
@@ -241,7 +390,7 @@ export default function SettingsPage() {
                                                             )}
                                                         </div>
                                                     ))}
-                                                    <button type="button" onClick={() => addSlot(key)} className="text-sm font-medium text-orange-500 hover:text-orange-400 flex items-center gap-1 mt-2">
+                                                    <button type="button" onClick={() => addSlot(key)} className="text-sm font-medium text-yellow-500 hover:text-yellow-400 flex items-center gap-1 mt-2">
                                                         <Plus className="w-4 h-4" /> Añadir otro turno
                                                     </button>
                                                 </div>
@@ -264,7 +413,7 @@ export default function SettingsPage() {
                                     type="text"
                                     value={settings.whatsappNumber}
                                     onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })}
-                                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-8 pr-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-8 pr-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                                     placeholder="549110000000"
                                 />
                             </div>
@@ -280,35 +429,12 @@ export default function SettingsPage() {
                                     type="number"
                                     value={settings.deliveryCost}
                                     onChange={(e) => setSettings({ ...settings, deliveryCost: e.target.value })}
-                                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-8 pr-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-8 pr-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                                     placeholder="500"
                                 />
                             </div>
                         </div>
 
-                        <div className="md:col-span-2 mt-4 pt-6 border-t border-zinc-800/50">
-                            <label className="block text-sm font-medium text-zinc-400 mb-2">Mensaje Predefinido de WhatsApp</label>
-                            <textarea
-                                rows={2}
-                                value={settings.orderMessage}
-                                onChange={(e) => setSettings({ ...settings, orderMessage: e.target.value })}
-                                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-orange-500 focus:outline-none"
-                                placeholder="¡Hola! Te dejo mi pedido:"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Seguridad (Informativo) */}
-                <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6">
-                    <div className="flex items-start gap-3">
-                        <ShieldAlert className="w-5 h-5 text-zinc-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                            <h3 className="text-sm font-medium text-zinc-300">Seguridad del Panel</h3>
-                            <p className="text-sm text-zinc-500 mt-1 leading-relaxed">
-                                La contraseña global de administración y configuraciones de base de datos se manejan exclusivamente a través de variables de entorno (<code className="bg-zinc-800 px-1 py-0.5 rounded text-xs">.env.local</code>) para garantizar la máxima seguridad contra ataques.
-                            </p>
-                        </div>
                     </div>
                 </div>
 
@@ -317,7 +443,7 @@ export default function SettingsPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white px-6 py-3 rounded-xl font-medium transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-orange-900/20 active:scale-[0.98]"
+                        className="flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-white px-6 py-3 rounded-xl font-medium transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-yellow-900/20 active:scale-[0.98]"
                     >
                         {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                         Guardar Cambios
@@ -327,3 +453,4 @@ export default function SettingsPage() {
         </div>
     );
 }
+

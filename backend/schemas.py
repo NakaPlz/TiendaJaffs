@@ -75,10 +75,18 @@ class Order(OrderBase):
 
 # --- SETTINGS ---
 class StoreSettingsBase(BaseModel):
+    # Personalización
+    store_name: str = "Jaff's Lomos"
+    store_location: str = "Los Polvorines, Buenos Aires"
+    store_description: str = ""
+    banner_url: Optional[str] = None
+    logo_url: Optional[str] = None
+    instagram_url: str = ""
+    # Operación
     is_open: bool
     whatsapp_number: str
     delivery_cost: float
-    order_message: str
+    order_message: str = "¡Hola! Quisiera hacer el siguiente pedido:"
     schedules: Optional[dict] = None
 
 class StoreSettingsCreate(StoreSettingsBase):

@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 // Tags predefinidos disponibles para asignar a productos
 const AVAILABLE_TAGS = [
-    { key: "recomendados", label: "⭐ Recomendados", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
+    { key: "recomendados", label: "⭐ Recomendados", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
     { key: "ofertas", label: "🔥 Ofertas", color: "bg-red-500/20 text-red-400 border-red-500/30" },
     { key: "nuevo", label: "✨ Nuevo", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
     { key: "popular", label: "💎 Popular", color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
@@ -206,7 +206,7 @@ export default function MenuManagementPage() {
                             value={newCatName}
                             onChange={(e) => setNewCatName(e.target.value)}
                             placeholder="Ej. Hamburguesas, Pizzas, Bebidas..."
-                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                         />
                     </div>
                     <div className="flex-1 w-full">
@@ -219,7 +219,7 @@ export default function MenuManagementPage() {
                                 onChange={(e) => handleFileUpload(e, setNewCatImage)}
                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-wait"
                             />
-                            <div className="w-full bg-zinc-950 border border-zinc-800 border-dashed rounded-xl px-4 py-3 text-zinc-500 focus-within:ring-2 focus-within:ring-orange-500 flex items-center gap-2">
+                            <div className="w-full bg-zinc-950 border border-zinc-800 border-dashed rounded-xl px-4 py-3 text-zinc-500 focus-within:ring-2 focus-within:ring-yellow-500 flex items-center gap-2">
                                 <UploadCloud className="w-4 h-4 text-zinc-400" />
                                 <span className="truncate">{newCatImage ? "Imagen seleccionada ✓" : "Habilitar para subir foto..."}</span>
                             </div>
@@ -228,7 +228,7 @@ export default function MenuManagementPage() {
                             <img src={newCatImage} alt="preview" className="mt-2 w-12 h-12 object-cover rounded-lg border border-zinc-700" />
                         )}
                     </div>
-                    <button type="submit" className="bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 rounded-xl font-medium transition-colors">
+                    <button type="submit" className="bg-yellow-600 hover:bg-yellow-500 text-white px-6 py-3 rounded-xl font-medium transition-colors">
                         Guardar
                     </button>
                     <button type="button" onClick={() => setIsCreatingCat(false)} className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-6 py-3 rounded-xl font-medium transition-colors">
@@ -239,7 +239,7 @@ export default function MenuManagementPage() {
 
             {isLoading ? (
                 <div className="flex items-center justify-center p-20">
-                    <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
+                    <Loader2 className="w-8 h-8 text-yellow-500 animate-spin" />
                 </div>
             ) : categories?.length === 0 ? (
                 <div className="text-center py-20 border-2 border-dashed border-zinc-800 rounded-3xl">
@@ -257,7 +257,7 @@ export default function MenuManagementPage() {
                                         autoFocus
                                         value={editCat.name}
                                         onChange={e => setEditCat({ ...editCat, name: e.target.value })}
-                                        className="w-full md:w-auto flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:ring-1 focus:ring-orange-500 outline-none"
+                                        className="w-full md:w-auto flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:ring-1 focus:ring-yellow-500 outline-none"
                                         placeholder="Nombre Categoría"
                                     />
                                     <div className="w-full md:w-auto flex-1">
@@ -276,7 +276,7 @@ export default function MenuManagementPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <button type="submit" className="text-orange-500 font-medium text-sm hover:underline">Guardar</button>
+                                        <button type="submit" className="text-yellow-500 font-medium text-sm hover:underline">Guardar</button>
                                         <button type="button" onClick={() => setEditingCatId(null)} className="text-zinc-500 text-sm hover:text-white transition-colors">Cancelar</button>
                                     </div>
                                 </form>
@@ -287,7 +287,7 @@ export default function MenuManagementPage() {
                                             {cat.image_url ? (
                                                 <img src={cat.image_url} alt={cat.name} className="w-full h-full object-cover" />
                                             ) : (
-                                                <ImageIcon className="w-4 h-4 text-orange-500" />
+                                                <ImageIcon className="w-4 h-4 text-yellow-500" />
                                             )}
                                         </div>
                                         <h2 className="text-xl font-semibold text-white">{cat.name}</h2>
@@ -320,19 +320,19 @@ export default function MenuManagementPage() {
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div>
                                                             <label className="block text-xs font-medium text-zinc-500 mb-1">Nombre</label>
-                                                            <input autoFocus required value={editProduct.name} onChange={e => setEditProduct({ ...editProduct, name: e.target.value })} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" />
+                                                            <input autoFocus required value={editProduct.name} onChange={e => setEditProduct({ ...editProduct, name: e.target.value })} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" />
                                                         </div>
                                                         <div>
                                                             <label className="block text-xs font-medium text-zinc-500 mb-1">Precio ($)</label>
-                                                            <input required type="number" step="0.01" value={editProduct.price} onChange={e => setEditProduct({ ...editProduct, price: e.target.value })} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" />
+                                                            <input required type="number" step="0.01" value={editProduct.price} onChange={e => setEditProduct({ ...editProduct, price: e.target.value })} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" />
                                                         </div>
                                                         <div>
                                                             <label className="block text-xs font-medium text-zinc-500 mb-1">Prioridad (mayor = primero)</label>
-                                                            <input type="number" value={editProduct.priority} onChange={e => setEditProduct({ ...editProduct, priority: e.target.value })} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" placeholder="0" />
+                                                            <input type="number" value={editProduct.priority} onChange={e => setEditProduct({ ...editProduct, priority: e.target.value })} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" placeholder="0" />
                                                         </div>
                                                         <div className="md:col-span-2">
                                                             <label className="block text-xs font-medium text-zinc-500 mb-1">Descripción corta</label>
-                                                            <input value={editProduct.description} onChange={e => setEditProduct({ ...editProduct, description: e.target.value })} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" />
+                                                            <input value={editProduct.description} onChange={e => setEditProduct({ ...editProduct, description: e.target.value })} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" />
                                                         </div>
                                                         <div className="md:col-span-2">
                                                             <label className="block text-xs font-medium text-zinc-500 mb-1">Foto (Opcional)</label>
@@ -382,7 +382,7 @@ export default function MenuManagementPage() {
                                                     </div>
                                                     <div className="flex gap-2 justify-end pt-2">
                                                         <button type="button" onClick={() => setEditingProductId(null)} className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors">Cancelar</button>
-                                                        <button onClick={(e) => handleUpdateProduct(e, product.id, cat.id)} className="px-4 py-2 text-sm font-medium bg-orange-600 hover:bg-orange-500 text-white rounded-lg transition-colors">Guardar Cambios</button>
+                                                        <button onClick={(e) => handleUpdateProduct(e, product.id, cat.id)} className="px-4 py-2 text-sm font-medium bg-yellow-600 hover:bg-yellow-500 text-white rounded-lg transition-colors">Guardar Cambios</button>
                                                     </div>
                                                 </div>
                                             ) : (
@@ -407,7 +407,7 @@ export default function MenuManagementPage() {
                                                             )}
                                                         </div>
                                                         <p className="text-zinc-500 text-sm truncate">{product.description || "Sin descripción"}</p>
-                                                        <p className="text-orange-400 font-semibold mt-1">${product.price.toFixed(2)}</p>
+                                                        <p className="text-yellow-400 font-semibold mt-1">${product.price.toFixed(2)}</p>
                                                     </div>
                                                     <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                                                         <button
@@ -429,15 +429,15 @@ export default function MenuManagementPage() {
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-xs font-medium text-zinc-500 mb-1">Nombre del Plato</label>
-                                                <input autoFocus required value={newProduct.name} onChange={e => setNewProduct({ ...newProduct, name: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" placeholder="Ej. Lomo Completo" />
+                                                <input autoFocus required value={newProduct.name} onChange={e => setNewProduct({ ...newProduct, name: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" placeholder="Ej. Lomo Completo" />
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-medium text-zinc-500 mb-1">Precio ($)</label>
-                                                <input required type="number" step="0.01" value={newProduct.price} onChange={e => setNewProduct({ ...newProduct, price: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" placeholder="0.00" />
+                                                <input required type="number" step="0.01" value={newProduct.price} onChange={e => setNewProduct({ ...newProduct, price: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" placeholder="0.00" />
                                             </div>
                                             <div className="md:col-span-2">
                                                 <label className="block text-xs font-medium text-zinc-500 mb-1">Descripción corta (opcional)</label>
-                                                <input value={newProduct.description} onChange={e => setNewProduct({ ...newProduct, description: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" placeholder="Ingredientes, detalles..." />
+                                                <input value={newProduct.description} onChange={e => setNewProduct({ ...newProduct, description: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" placeholder="Ingredientes, detalles..." />
                                             </div>
                                             <div className="md:col-span-2">
                                                 <label className="block text-xs font-medium text-zinc-500 mb-1">Foto del Plato (opcional)</label>
@@ -458,13 +458,13 @@ export default function MenuManagementPage() {
                                         </div>
                                         <div className="flex gap-2 justify-end pt-2">
                                             <button type="button" onClick={() => setAddingProductToCat(null)} className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors">Cancelar</button>
-                                            <button type="submit" className="px-4 py-2 text-sm font-medium bg-orange-600 hover:bg-orange-500 text-white rounded-lg transition-colors">Guardar Producto</button>
+                                            <button type="submit" className="px-4 py-2 text-sm font-medium bg-yellow-600 hover:bg-yellow-500 text-white rounded-lg transition-colors">Guardar Producto</button>
                                         </div>
                                     </form>
                                 ) : (
                                     <button
                                         onClick={() => setAddingProductToCat(cat.id)}
-                                        className="mt-4 w-full py-3 border border-dashed border-zinc-700 hover:border-orange-500 hover:text-orange-500 rounded-xl flex items-center justify-center gap-2 text-zinc-400 font-medium transition-colors"
+                                        className="mt-4 w-full py-3 border border-dashed border-zinc-700 hover:border-yellow-500 hover:text-yellow-500 rounded-xl flex items-center justify-center gap-2 text-zinc-400 font-medium transition-colors"
                                     >
                                         <Plus className="w-4 h-4" /> Agregar Producto a {cat.name}
                                     </button>
@@ -498,3 +498,4 @@ function UtensilsIcon(props: any) {
         </svg>
     );
 }
+

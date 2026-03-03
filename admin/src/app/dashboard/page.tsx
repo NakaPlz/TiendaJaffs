@@ -82,8 +82,8 @@ export default function DashboardPage() {
                 {/* Facturación del Día */}
                 <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 relative">
                     <div className="flex items-center justify-between mb-2">
-                        <div className="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center">
-                            <DollarSign className="w-5 h-5 text-orange-500" />
+                        <div className="w-10 h-10 bg-yellow-500/20 rounded-xl flex items-center justify-center">
+                            <DollarSign className="w-5 h-5 text-yellow-500" />
                         </div>
                         {revenueChange !== 0 && (
                             <span className={`text-xs font-bold px-2 py-1 rounded-lg ${revenueChange > 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
@@ -98,8 +98,8 @@ export default function DashboardPage() {
 
                 {/* Ticket Promedio */}
                 <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6">
-                    <div className="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center mb-2">
-                        <TrendingUp className="w-5 h-5 text-orange-500" />
+                    <div className="w-10 h-10 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-2">
+                        <TrendingUp className="w-5 h-5 text-yellow-500" />
                     </div>
                     <h3 className="text-zinc-400 text-sm font-medium">Ticket Promedio</h3>
                     <p className="text-3xl font-bold mt-1">${new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2 }).format(ticketPromedio)}</p>
@@ -108,8 +108,8 @@ export default function DashboardPage() {
 
                 {/* Facturación Histórica */}
                 <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6">
-                    <div className="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center mb-2">
-                        <CalendarDays className="w-5 h-5 text-orange-500" />
+                    <div className="w-10 h-10 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-2">
+                        <CalendarDays className="w-5 h-5 text-yellow-500" />
                     </div>
                     <h3 className="text-zinc-400 text-sm font-medium">Facturación Histórica</h3>
                     <p className="text-3xl font-bold mt-1">${new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2 }).format(totalHistorico)}</p>
@@ -148,7 +148,7 @@ export default function DashboardPage() {
                                         {/* Barra */}
                                         <div
                                             className={`w-full rounded-t-sm transition-all duration-300 ${hasData
-                                                ? 'bg-gradient-to-t from-orange-600 to-orange-400 group-hover:from-orange-500 group-hover:to-orange-300'
+                                                ? 'bg-gradient-to-t from-yellow-600 to-yellow-400 group-hover:from-yellow-500 group-hover:to-yellow-300'
                                                 : 'bg-zinc-800'
                                                 }`}
                                             style={{
@@ -176,7 +176,7 @@ export default function DashboardPage() {
                         <div className="space-y-4">
                             {topProducts.map((p, i) => (
                                 <div key={p.name} className="flex items-center gap-3">
-                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 ${i === 0 ? 'bg-orange-500/20 text-orange-400' :
+                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 ${i === 0 ? 'bg-yellow-500/20 text-yellow-400' :
                                         i === 1 ? 'bg-zinc-700/50 text-zinc-300' :
                                             'bg-zinc-800/50 text-zinc-500'
                                         }`}>
@@ -195,3 +195,4 @@ export default function DashboardPage() {
         </div>
     );
 }
+

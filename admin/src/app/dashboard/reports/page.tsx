@@ -92,7 +92,7 @@ export default function ReportsPage() {
                                 key={p.key}
                                 onClick={() => { setPeriod(p.key); setShowAllProducts(false); }}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${period === p.key
-                                    ? "bg-orange-600 text-white shadow-lg shadow-orange-900/30"
+                                    ? "bg-yellow-600 text-white shadow-lg shadow-yellow-900/30"
                                     : "text-zinc-400 hover:text-white hover:bg-zinc-800"
                                     }`}
                             >
@@ -112,23 +112,23 @@ export default function ReportsPage() {
 
             {isLoading ? (
                 <div className="flex items-center justify-center h-96">
-                    <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
+                    <Loader2 className="w-8 h-8 text-yellow-500 animate-spin" />
                 </div>
             ) : report && (
                 <>
                     {/* KPIs */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                        <KpiCard icon={<DollarSign className="w-5 h-5 text-orange-500" />} title="Facturación" value={`$${new Intl.NumberFormat('es-AR').format(report.kpis.revenue)}`} sub={`Período: ${PERIODS.find(p => p.key === period)?.label}`} />
-                        <KpiCard icon={<ShoppingBag className="w-5 h-5 text-orange-500" />} title="Pedidos" value={report.kpis.orders} sub={`${report.kpis.orders_per_day}/día promedio`} />
-                        <KpiCard icon={<TrendingUp className="w-5 h-5 text-orange-500" />} title="Ticket Promedio" value={`$${new Intl.NumberFormat('es-AR').format(report.kpis.avg_ticket)}`} sub="Por pedido" />
-                        <KpiCard icon={<CalendarDays className="w-5 h-5 text-orange-500" />} title="Granularidad" value={report.granularity === "daily" ? "Diaria" : "Mensual"} sub={`${report.revenue_timeline.length} puntos`} />
+                        <KpiCard icon={<DollarSign className="w-5 h-5 text-yellow-500" />} title="Facturación" value={`$${new Intl.NumberFormat('es-AR').format(report.kpis.revenue)}`} sub={`Período: ${PERIODS.find(p => p.key === period)?.label}`} />
+                        <KpiCard icon={<ShoppingBag className="w-5 h-5 text-yellow-500" />} title="Pedidos" value={report.kpis.orders} sub={`${report.kpis.orders_per_day}/día promedio`} />
+                        <KpiCard icon={<TrendingUp className="w-5 h-5 text-yellow-500" />} title="Ticket Promedio" value={`$${new Intl.NumberFormat('es-AR').format(report.kpis.avg_ticket)}`} sub="Por pedido" />
+                        <KpiCard icon={<CalendarDays className="w-5 h-5 text-yellow-500" />} title="Granularidad" value={report.granularity === "daily" ? "Diaria" : "Mensual"} sub={`${report.revenue_timeline.length} puntos`} />
                     </div>
 
                     {/* Gráfico principal: Facturación Timeline */}
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
                         <div className="lg:col-span-3 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6">
                             <div className="flex items-center gap-2 mb-1">
-                                <BarChart3 className="w-4 h-4 text-orange-500" />
+                                <BarChart3 className="w-4 h-4 text-yellow-500" />
                                 <h2 className="text-lg font-bold text-white">Facturación {report.granularity === "daily" ? "Diaria" : "Mensual"}</h2>
                             </div>
                             <p className="text-zinc-500 text-xs mb-6">{report.revenue_timeline.length} {report.granularity === "daily" ? "días" : "meses"} con datos</p>
@@ -149,7 +149,7 @@ export default function ReportsPage() {
                                                     <p>${new Intl.NumberFormat('es-AR').format(d.revenue)} · {d.orders} ped.</p>
                                                 </div>
                                                 <div
-                                                    className="w-full rounded-t-sm bg-gradient-to-t from-orange-600 to-orange-400 group-hover:from-orange-500 group-hover:to-orange-300 transition-all"
+                                                    className="w-full rounded-t-sm bg-gradient-to-t from-yellow-600 to-yellow-400 group-hover:from-yellow-500 group-hover:to-yellow-300 transition-all"
                                                     style={{ height: `${Math.max(pct, 3)}%`, minHeight: '2px' }}
                                                 />
                                                 {/* Labels cada N barras */}
@@ -172,14 +172,14 @@ export default function ReportsPage() {
                                 <div className="space-y-3">
                                     {report.top_products.slice(0, 5).map((p: any, i: number) => (
                                         <div key={p.name} className="flex items-center gap-3">
-                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 ${i === 0 ? 'bg-orange-500/20 text-orange-400' : i === 1 ? 'bg-zinc-700/50 text-zinc-300' : 'bg-zinc-800/50 text-zinc-500'}`}>
+                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 ${i === 0 ? 'bg-yellow-500/20 text-yellow-400' : i === 1 ? 'bg-zinc-700/50 text-zinc-300' : 'bg-zinc-800/50 text-zinc-500'}`}>
                                                 #{i + 1}
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-sm font-medium text-white truncate">{p.name}</p>
                                                 <p className="text-xs text-zinc-500">{p.quantity} uds · {p.pct_of_total}% del total</p>
                                             </div>
-                                            <span className="text-orange-400 font-semibold text-sm flex-shrink-0">
+                                            <span className="text-yellow-400 font-semibold text-sm flex-shrink-0">
                                                 ${new Intl.NumberFormat('es-AR').format(p.revenue)}
                                             </span>
                                         </div>
@@ -206,7 +206,7 @@ export default function ReportsPage() {
                                                 <span className="w-12 text-xs text-zinc-400 font-medium flex-shrink-0">{d.day.slice(0, 3)}</span>
                                                 <div className="flex-1 bg-zinc-800/50 rounded-full h-6 overflow-hidden relative">
                                                     <div
-                                                        className="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full transition-all duration-500"
+                                                        className="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full transition-all duration-500"
                                                         style={{ width: `${Math.max(pct, 2)}%` }}
                                                     />
                                                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-zinc-300 font-medium">
@@ -224,7 +224,7 @@ export default function ReportsPage() {
                         {/* Método de pago */}
                         <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6">
                             <div className="flex items-center gap-2 mb-1">
-                                <CreditCard className="w-4 h-4 text-orange-500" />
+                                <CreditCard className="w-4 h-4 text-yellow-500" />
                                 <h2 className="text-lg font-bold text-white">Métodos de Pago</h2>
                             </div>
                             <p className="text-zinc-500 text-xs mb-5">Distribución por método</p>
@@ -242,7 +242,7 @@ export default function ReportsPage() {
                                                 </div>
                                                 <div className="bg-zinc-800/50 rounded-full h-5 overflow-hidden">
                                                     <div
-                                                        className="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full transition-all duration-500"
+                                                        className="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full transition-all duration-500"
                                                         style={{ width: `${Math.max(pct, 2)}%` }}
                                                     />
                                                 </div>
@@ -278,10 +278,10 @@ export default function ReportsPage() {
                                                 <tr key={p.name} className="border-b border-zinc-800/50 hover:bg-zinc-800/30 transition-colors">
                                                     <td className="py-3 text-white font-medium">{p.name}</td>
                                                     <td className="py-3 text-right text-zinc-300">{p.quantity}</td>
-                                                    <td className="py-3 text-right text-orange-400 font-semibold">${new Intl.NumberFormat('es-AR').format(p.revenue)}</td>
+                                                    <td className="py-3 text-right text-yellow-400 font-semibold">${new Intl.NumberFormat('es-AR').format(p.revenue)}</td>
                                                     <td className="py-3 text-right text-zinc-400">${new Intl.NumberFormat('es-AR').format(p.unit_ticket)}</td>
                                                     <td className="py-3 text-right">
-                                                        <span className="bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded-full text-xs font-bold">
+                                                        <span className="bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full text-xs font-bold">
                                                             {p.pct_of_total}%
                                                         </span>
                                                     </td>
@@ -293,7 +293,7 @@ export default function ReportsPage() {
                                 {!showAllProducts && report.all_products.length > 5 && (
                                     <button
                                         onClick={() => setShowAllProducts(true)}
-                                        className="mt-4 w-full py-2.5 text-sm font-medium text-orange-400 hover:text-orange-300 bg-orange-500/5 hover:bg-orange-500/10 border border-orange-500/20 rounded-xl transition-all"
+                                        className="mt-4 w-full py-2.5 text-sm font-medium text-yellow-400 hover:text-yellow-300 bg-yellow-500/5 hover:bg-yellow-500/10 border border-yellow-500/20 rounded-xl transition-all"
                                     >
                                         Ver todos los productos ({report.all_products.length})
                                     </button>
@@ -327,3 +327,4 @@ function KpiCard({ icon, title, value, sub }: { icon: React.ReactNode; title: st
         </div>
     );
 }
+

@@ -119,7 +119,7 @@ export default function CartPage() {
                 </div>
                 <h2 className="text-xl font-bold mb-2">Tu pedido está vacío</h2>
                 <p className="text-zinc-500 mb-8">Parece que aún no has agregado nada delicioso a tu pedido.</p>
-                <Link href="/" className="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3.5 px-8 rounded-2xl transition-all shadow-lg shadow-orange-900/40">
+                <Link href="/" className="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3.5 px-8 rounded-2xl transition-all shadow-lg shadow-yellow-900/40">
                     Ir al Menú
                 </Link>
             </div>
@@ -154,7 +154,7 @@ export default function CartPage() {
                                 >
                                     <div className="flex-1">
                                         <h3 className="font-bold text-[15px]">{item.name}</h3>
-                                        <p className="text-orange-500 font-extrabold mt-1">
+                                        <p className="text-yellow-500 font-extrabold mt-1">
                                             ${new Intl.NumberFormat('es-AR').format(item.price)}
                                         </p>
 
@@ -200,7 +200,7 @@ export default function CartPage() {
                             )}
                             <div className="flex justify-between pt-3 border-t border-zinc-800 text-white font-bold text-lg">
                                 <span>Total</span>
-                                <span className="text-orange-500">${new Intl.NumberFormat('es-AR').format(totalFinal)}</span>
+                                <span className="text-yellow-500">${new Intl.NumberFormat('es-AR').format(totalFinal)}</span>
                             </div>
                         </div>
                     </div>
@@ -214,14 +214,14 @@ export default function CartPage() {
                         <div className="grid grid-cols-2 gap-3 p-1 bg-zinc-900 border border-zinc-800 rounded-2xl">
                             <button
                                 onClick={() => setOrderType('pickup')}
-                                className={`py-3 flex items-center justify-center gap-2 rounded-xl transition-all font-semibold text-sm ${orderType === 'pickup' ? 'bg-orange-600 text-white shadow-md' : 'text-zinc-400 hover:text-zinc-200'
+                                className={`py-3 flex items-center justify-center gap-2 rounded-xl transition-all font-semibold text-sm ${orderType === 'pickup' ? 'bg-yellow-600 text-white shadow-md' : 'text-zinc-400 hover:text-zinc-200'
                                     }`}
                             >
                                 <Store className="w-4 h-4" /> Retiro Local
                             </button>
                             <button
                                 onClick={() => setOrderType('delivery')}
-                                className={`py-3 flex items-center justify-center gap-2 rounded-xl transition-all font-semibold text-sm ${orderType === 'delivery' ? 'bg-orange-600 text-white shadow-md' : 'text-zinc-400 hover:text-zinc-200'
+                                className={`py-3 flex items-center justify-center gap-2 rounded-xl transition-all font-semibold text-sm ${orderType === 'delivery' ? 'bg-yellow-600 text-white shadow-md' : 'text-zinc-400 hover:text-zinc-200'
                                     }`}
                             >
                                 <MapPin className="w-4 h-4" /> A Domicilio
@@ -234,7 +234,7 @@ export default function CartPage() {
                                 placeholder="Nombre y Apellido"
                                 value={customerName}
                                 onChange={(e) => setCustomerName(e.target.value)}
-                                className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-orange-500/50"
+                                className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50"
                             />
 
                             {isDelivery && (
@@ -244,21 +244,21 @@ export default function CartPage() {
                                         placeholder="Dirección de entrega"
                                         value={address}
                                         onChange={(e) => setAddress(e.target.value)}
-                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-orange-500/50"
+                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50"
                                     />
                                     <input
                                         type="text"
                                         placeholder="Entre calles"
                                         value={entreCalles}
                                         onChange={(e) => setEntreCalles(e.target.value)}
-                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-orange-500/50"
+                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50"
                                     />
                                     <input
                                         type="text"
                                         placeholder="Observaciones / Referencias de la casa (Opcional)"
                                         value={observaciones}
                                         onChange={(e) => setObservaciones(e.target.value)}
-                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-orange-500/50"
+                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50"
                                     />
                                 </div>
                             )}
@@ -268,7 +268,7 @@ export default function CartPage() {
                                 <button
                                     onClick={() => setMetodoPago('EFECTIVO')}
                                     className={`py-3 rounded-xl transition-all font-semibold text-sm border ${metodoPago === 'EFECTIVO'
-                                        ? 'bg-orange-500/10 border-orange-500 text-orange-500'
+                                        ? 'bg-yellow-500/10 border-yellow-500 text-yellow-500'
                                         : 'bg-transparent border-zinc-700 text-zinc-400 hover:border-zinc-500'
                                         }`}
                                 >
@@ -277,7 +277,7 @@ export default function CartPage() {
                                 <button
                                     onClick={() => setMetodoPago('TRANSFERENCIA')}
                                     className={`py-3 rounded-xl transition-all font-semibold text-sm border ${metodoPago === 'TRANSFERENCIA'
-                                        ? 'bg-orange-500/10 border-orange-500 text-orange-500'
+                                        ? 'bg-yellow-500/10 border-yellow-500 text-yellow-500'
                                         : 'bg-transparent border-zinc-700 text-zinc-400 hover:border-zinc-500'
                                         }`}
                                 >
@@ -335,3 +335,4 @@ export default function CartPage() {
         </div>
     );
 }
+

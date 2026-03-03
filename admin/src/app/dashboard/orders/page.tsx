@@ -127,13 +127,13 @@ export default function OrdersPage() {
                 <div>
                     <h1 className="text-3xl font-bold text-white flex items-center gap-3">
                         Gestión de Órdenes
-                        {isLoading && <Loader2 className="w-5 h-5 animate-spin text-orange-500" />}
+                        {isLoading && <Loader2 className="w-5 h-5 animate-spin text-yellow-500" />}
                     </h1>
                     <p className="text-zinc-400 mt-1">Órdenes que llegan por WhatsApp o que cargas en el mostrador.</p>
                 </div>
                 <button
                     onClick={() => setIsCreatingManual(!isCreatingManual)}
-                    className="flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white px-4 py-2.5 rounded-xl font-medium transition-colors"
+                    className="flex items-center gap-2 bg-yellow-600 hover:bg-yellow-500 text-white px-4 py-2.5 rounded-xl font-medium transition-colors"
                 >
                     <Plus className="w-5 h-5" />
                     Nueva Venta Manual
@@ -155,7 +155,7 @@ export default function OrdersPage() {
                                 <select
                                     value={selectedProductId}
                                     onChange={(e) => setSelectedProductId(e.target.value)}
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none"
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none"
                                 >
                                     <option value="">-- Seleccionar --</option>
                                     {products?.map(p => (
@@ -166,11 +166,11 @@ export default function OrdersPage() {
                             <div className="flex gap-4">
                                 <div className="w-24">
                                     <label className="block text-xs font-medium text-zinc-500 mb-1">Cantidad</label>
-                                    <input type="number" min="1" value={selectedQuantity} onChange={(e) => setSelectedQuantity(e.target.value)} className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" />
+                                    <input type="number" min="1" value={selectedQuantity} onChange={(e) => setSelectedQuantity(e.target.value)} className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" />
                                 </div>
                                 <div className="flex-1">
                                     <label className="block text-xs font-medium text-zinc-500 mb-1">Aclaraciones</label>
-                                    <input value={specialInstructions} onChange={(e) => setSpecialInstructions(e.target.value)} placeholder="Ej. Sin mayonesa" className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" />
+                                    <input value={specialInstructions} onChange={(e) => setSpecialInstructions(e.target.value)} placeholder="Ej. Sin mayonesa" className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" />
                                 </div>
                             </div>
                             <button type="button" onClick={handleAddManualItem} className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-zinc-700">
@@ -182,7 +182,7 @@ export default function OrdersPage() {
                         <form onSubmit={handleCreateManualOrder} className="flex flex-col h-full space-y-4">
                             <div>
                                 <label className="block text-xs font-medium text-zinc-500 mb-1">Nombre en el Ticket</label>
-                                <input required autoFocus value={manualCustomer} onChange={(e) => setManualCustomer(e.target.value)} placeholder="¿A qué nombre?" className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-orange-500 outline-none" />
+                                <input required autoFocus value={manualCustomer} onChange={(e) => setManualCustomer(e.target.value)} placeholder="¿A qué nombre?" className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:ring-1 focus:ring-yellow-500 outline-none" />
                             </div>
 
                             <div className="flex-1 bg-zinc-950 border border-zinc-800 rounded-xl p-4 overflow-y-auto max-h-48 border-dashed">
@@ -193,7 +193,7 @@ export default function OrdersPage() {
                                         {manualItems.map((item, i) => (
                                             <li key={i} className="flex justify-between items-center text-sm border-b border-zinc-800/50 pb-2">
                                                 <div>
-                                                    <span className="text-orange-500 font-bold mr-2">{item.quantity}x</span>
+                                                    <span className="text-yellow-500 font-bold mr-2">{item.quantity}x</span>
                                                     <span className="text-zinc-300">{item.name}</span>
                                                     {item.special_instructions && <p className="text-[10px] text-zinc-500">{item.special_instructions}</p>}
                                                 </div>
@@ -212,7 +212,7 @@ export default function OrdersPage() {
                                 <span className="text-2xl text-white font-bold">${manualTotalCalculated.toFixed(2)}</span>
                             </div>
 
-                            <button type="submit" className="w-full bg-orange-600 hover:bg-orange-500 text-white px-6 py-3.5 rounded-xl font-bold transition-colors text-sm uppercase tracking-wide">
+                            <button type="submit" className="w-full bg-yellow-600 hover:bg-yellow-500 text-white px-6 py-3.5 rounded-xl font-bold transition-colors text-sm uppercase tracking-wide">
                                 Cobrar e Imprimir Ticket
                             </button>
                         </form>
@@ -232,7 +232,7 @@ export default function OrdersPage() {
                         <div key={order.id} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 hover:border-zinc-700 transition-colors">
                             <div className="flex justify-between items-start mb-4">
                                 <div className="flex gap-4 items-start">
-                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg ${order.order_type === 'delivery' ? 'bg-orange-500/10 text-orange-500' : 'bg-blue-500/10 text-blue-500'}`}>
+                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg ${order.order_type === 'delivery' ? 'bg-yellow-500/10 text-yellow-500' : 'bg-blue-500/10 text-blue-500'}`}>
                                         #{order.id.toString().padStart(3, '0')}
                                     </div>
                                     <div>
@@ -254,7 +254,7 @@ export default function OrdersPage() {
 
                             {order.order_type === 'delivery' && (
                                 <div className="mb-4 bg-zinc-950/50 p-3 rounded-lg border border-zinc-800/50 flex gap-3 text-sm">
-                                    <MapPin className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
+                                    <MapPin className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
                                     <div className="text-zinc-300">
                                         <p className="font-medium text-white">{order.delivery_address}</p>
                                         {order.delivery_references && <p className="text-zinc-500 mt-0.5 text-xs">{order.delivery_references}</p>}
@@ -266,10 +266,10 @@ export default function OrdersPage() {
                                 {order.items.map(item => (
                                     <div key={item.id} className="flex justify-between text-sm py-1 border-b border-zinc-800/30 last:border-0 hover:bg-zinc-800/20 px-2 rounded -mx-2">
                                         <div className="flex gap-2">
-                                            <span className="text-orange-500 font-semibold">{item.quantity}x</span>
+                                            <span className="text-yellow-500 font-semibold">{item.quantity}x</span>
                                             <span className="text-zinc-300">
                                                 {item.product.name}
-                                                {item.special_instructions && <span className="block text-xs text-orange-400">Nota: {item.special_instructions}</span>}
+                                                {item.special_instructions && <span className="block text-xs text-yellow-400">Nota: {item.special_instructions}</span>}
                                             </span>
                                         </div>
                                         <span className="text-zinc-400">${(item.quantity * item.unit_price).toFixed(2)}</span>
@@ -295,3 +295,4 @@ export default function OrdersPage() {
         </div>
     );
 }
+

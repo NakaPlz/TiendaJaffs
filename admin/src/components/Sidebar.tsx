@@ -47,7 +47,7 @@ export function Sidebar() {
     return (
         <aside className="fixed inset-y-0 left-0 w-64 bg-zinc-950 border-r border-zinc-800 z-50 flex flex-col">
             <div className="h-20 flex items-center px-8 border-b border-zinc-900">
-                <h2 className="text-xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                <h2 className="text-xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
                     JAFF&apos;S LOMOS
                 </h2>
             </div>
@@ -62,11 +62,11 @@ export function Sidebar() {
                             key={item.href}
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${isActive
-                                ? "bg-orange-500/10 text-orange-500"
+                                ? "bg-yellow-500/10 text-yellow-500"
                                 : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-50"
                                 }`}
                         >
-                            <item.icon className={`w-5 h-5 ${isActive ? "text-orange-500" : ""}`} />
+                            <item.icon className={`w-5 h-5 ${isActive ? "text-yellow-500" : ""}`} />
                             {item.label}
                         </Link>
                     );
@@ -92,3 +92,4 @@ export function Sidebar() {
         </aside>
     );
 }
+

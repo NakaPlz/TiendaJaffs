@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950 text-zinc-50 min-h-screen selection:bg-orange-500/30 selection:text-orange-200`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950 text-zinc-50 min-h-screen selection:bg-yellow-500/30 selection:text-yellow-200`}
       >
         <CartProvider>
           {children}
@@ -48,3 +48,4 @@ export default function RootLayout({
     </html>
   );
 }
+

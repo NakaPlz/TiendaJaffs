@@ -65,6 +65,14 @@ class StoreSettings(Base):
     __tablename__ = "store_settings"
 
     id = Column(Integer, primary_key=True, index=True)
+    # Personalización de la tienda
+    store_name = Column(String, default="Jaff's Lomos")
+    store_location = Column(String, default="Los Polvorines, Buenos Aires")
+    store_description = Column(String, default="")
+    banner_url = Column(String, nullable=True)
+    logo_url = Column(String, nullable=True)
+    instagram_url = Column(String, default="")
+    # Operación
     is_open = Column(Boolean, default=True)
     whatsapp_number = Column(String, default="5491100000000")
     delivery_cost = Column(Float, default=1500)
